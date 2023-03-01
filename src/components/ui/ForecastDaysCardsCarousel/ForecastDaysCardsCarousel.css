@@ -1,0 +1,32 @@
+.slick-slider {
+  margin: 0 -10px;
+  height: 200px; /* adjust the value to increase or decrease the gap */
+}
+
+.slick-slide > div {
+  margin: 0 27px;
+}
+.slick-list {
+  margin: 0 -10px;
+  margin-left: 24px;
+}
+
+.slick-next,
+.slick-prev {
+  transform: translateY(-30%) !important;
+  top: 50% !important;
+}
+
+.slick-next::before,
+.slick-prev::before {
+  font-size: 36px;
+}
+.slick-prev {
+  left: -1rem;
+}
+.slick-next {
+  right: -2rem;
+}
+.slick-track {
+  margin-top: 10px; /* adjust the value as needed */
+}

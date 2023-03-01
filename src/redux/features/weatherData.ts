@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-interface OpenMeteoData {
+export interface OpenMeteoData {
   latitude: number;
   longitude: number;
   generationtime_ms: number;
@@ -20,19 +20,25 @@ interface OpenMeteoData {
     precipitation_probability: string;
     precipitation: string;
     cloudcover: string;
+    relativehumidity_2m: string;
   };
   hourly: {
     time: string[];
-    data: {
-      temperature_2m: number[];
-      precipitation_probability: number[];
-      precipitation: number[];
-      cloudcover: number[];
-    };
+    temperature_2m: number[];
+    precipitation_probability: number[];
+    precipitation: number[];
+    cloudcover: number[];
+    relativehumidity_2m: number[];
+  };
+  daily: {
+    time: string[];
+    weathercode: number[];
+    temperature_2m_max: number[];
+    temperature_2m_min: number[];
   };
 }
 
-interface WeatherState {
+export interface WeatherState {
   data: OpenMeteoData | null;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null | undefined;
@@ -43,7 +49,7 @@ export const fetchWeatherData = createAsyncThunk<OpenMeteoData>(
   "weather/fetchWeatherData",
   async () => {
     const response = await fetch(
-      "https://api.open-meteo.com/v1/forecast?latitude=50.06&longitude=19.94&hourly=temperature_2m,precipitation_probability,precipitation,cloudcover&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto"
+      "https://api.open-meteo.com/v1/forecast?latitude=50.06&longitude=19.94&hourly=temperature_2m,precipitation_probability,precipitation,relativehumidity_2m,cloudcover&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto"
     );
     if (!response.ok) {
       throw new Error("Failed to fetch weather data");

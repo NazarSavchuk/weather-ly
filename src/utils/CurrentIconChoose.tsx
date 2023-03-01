@@ -3,12 +3,25 @@ import { useSelector } from "react-redux";
 import { selectWeatherData } from "../redux/app/store";
 import weatherIcons from "../assets/weatherIconsExport";
 
-export const CurrentIconChoose = () => {
-  const { weathercode, time } =
-    useSelector(selectWeatherData).data.current_weather;
-  const hour = parseInt(time.substring(11, 13));
+interface CurrentIconChooseProps {
+  weathercode: number;
+  time?: string;
+  size?: string;
+}
 
-  const iconClass = "h-28 w-28";
+export const CurrentIconChoose: React.FC<CurrentIconChooseProps> = ({
+  weathercode,
+  time,
+  size,
+}) => {
+  let hour = 8;
+  if (time) {
+    hour = parseInt(time.substring(11, 13));
+  }
+  let iconClass = "h-28 w-28";
+  if (size === "sm") {
+    iconClass = "h-20 w-20  ";
+  }
 
   switch (weathercode) {
     case 0:

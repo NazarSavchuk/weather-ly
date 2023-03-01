@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MainPage } from "./components/pages/MainPage";
+import { SearchPage } from "./components/pages/SearchPage";
 import { Loading } from "./components/ui/Loading";
 import { ServerError } from "./components/ui/ServerError";
 
@@ -22,7 +23,14 @@ function App() {
     <>
       {weatherData.status === "loading" ? <Loading /> : ""}
       {weatherData.status === "failed" ? <ServerError /> : ""}
-      {weatherData.status === "succeeded" ? <MainPage /> : ""}
+      {weatherData.status === "succeeded" ? (
+        <div className="flex h-full justify-between">
+          <MainPage />
+          <SearchPage />
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }
